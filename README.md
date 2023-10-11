@@ -163,7 +163,11 @@ Il est important de noter que "pickle" peut être puissant, mais il doit être u
 
 De plus, "pickle" n'est pas adapté à la sérialisation d'objets destinés à être partagés entre différentes versions de Python, car les formats de sérialisation peuvent varier entre les versions. Dans ce projet, la communication est réalisée entre des clients et un serveur Python, ce qui simplifie la compatibilité.
 
+### 2. Implémentation des clients et des classes joueur 🕹️
 
+Les clients utilisent Pygame pour créer une fenêtre de jeu. Chaque client a son propre objet `Player` qui représente le joueur qu'il contrôle. Le joueur est un carré coloré qui peut être déplacé à l'aide des touches fléchées.
+
+Les clients utilisent également la classe `Network` pour communiquer avec le serveur. Lorsque le client démarre, il se connecte au serveur, reçoit les données initiales du joueur et les stocke dans son propre objet `Player`. Le client utilise la classe `Network` pour envoyer ses données de déplacement au serveur et recevoir les données du joueur adverse.
 
 ### 3. Création des murs de la fenêtre et déplacement en X et Y 🏰
 
