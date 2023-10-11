@@ -13,6 +13,61 @@ The server creates two `Player` objects to represent the two players in the game
 
 The server uses threads to manage connections from the two players concurrently. Each thread is responsible for communication with a specific player. When a player sends their movement data, the server receives it, deserializes it using "pickle," updates the corresponding `Player` object, and then sends the data of the opposing player.
 
+#### Usage of the "pickle" Library in the Project
+
+##### Serialization and Deserialization
+
+The "pickle" library is used in this project for the serialization and deserialization of Python objects. Here's how it works:
+
+- **Serialization:** When a Python object needs to be sent from a client to a server or vice versa, or even when it needs to be stored on disk, it is serialized into a binary representation. "pickle" is used to accomplish this task. For example, in the project, `Player` objects are serialized before being sent to the server for initialization.
+
+    ```python
+    # Serializing an object with pickle
+    player_data = pickle.dumps(player_object)
+    ```
+
+- **Deserialization:** When binary data is received by the other party (e.g., the server), it needs to be deserialized to reconstruct the original Python object. "pickle" is also used for this step. For example, in the project, the server receives binary data and deserializes it to obtain the `Player` object.
+
+    ```python
+    # Deserializing an object with pickle
+    player_object = pickle.loads(player_data)
+    ```
+
+##### Usage in the Network Class
+
+The `Network` class in the project contains methods for the serialization and deserialization of data exchanged between clients and the server. Here's how "pickle" is used in this class:
+
+- The `send` method is used to send data from a client to the server. It serializes the data with "pickle" before sending it.
+
+    ```python
+    def send(self, data):
+        try:
+            self.client.send(pickle.dumps(data))
+        except socket.error as e:
+            print(e)
+    ```
+
+- The `connect` method is used to receive data from the server. It first receives the data in binary form and then deserializes it with "pickle" to obtain the original object.
+
+    ```python
+    def connect(self):
+        try:
+            self.client connect(self.addr)
+            return pickle.loads(self.client.recv(2048))
+        except:
+            pass
+    ```
+
+##### Security and Limitations
+
+It's important to note that "pickle" can be powerful but should be used with caution as it can execute arbitrary code during deserialization. This means when using "pickle," you should ensure that data comes from trusted sources as malicious data could potentially pose security issues.
+
+Furthermore, "pickle" is not suitable for serializing objects intended to be shared between different versions of Python as serialization formats can vary between versions. In this project, communication is conducted between Python clients and a server, simplifying compatibility.
+
+### 2. Implémentation des clients et des classes joueur 🕹️
+
+Les clients utilisent Pygame pour créer une fenêtre de jeu. Chaque client a son propre objet `Player` qui représente le joueur qu'il contrôle. Le joueur est un carré coloré qui peut être déplacé à l'aide des touches fléchées.
+
 ### 2. Implementation of Clients and Player Classes 🕹️
 
 Clients use Pygame to create a game window. Each client has its own `Player` object representing the player they control. The player is a colored square that can be moved using the arrow keys.
@@ -55,11 +110,60 @@ Le serveur crée deux objets `Player` pour représenter les deux joueurs dans le
 
 Le serveur utilise des threads pour gérer les connexions des deux joueurs de manière concurrente. Chaque thread est responsable de la communication avec un joueur spécifique. Lorsqu'un joueur envoie ses données de déplacement, le serveur les reçoit, les désérialise à l'aide de "pickle", met à jour l'objet `Player` correspondant, puis renvoie les données du joueur adverse.
 
-### 2. Implémentation des clients et des classes joueur 🕹️
-
-Les clients utilisent Pygame pour créer une fenêtre de jeu. Chaque client a son propre objet `Player` qui représente le joueur qu'il contrôle. Le joueur est un carré coloré qui peut être déplacé à l'aide des touches fléchées.
-
 Les clients utilisent également la classe `Network` pour communiquer avec le serveur. Lorsque le client démarre, il se connecte au serveur, reçoit les données initiales du joueur et les stocke dans son propre objet `Player`. Le client utilise la classe `Network` pour envoyer ses données de déplacement au serveur et recevoir les données du joueur adverse.
+
+#### Utilisation de la bibliothèque "pickle" dans le projet
+
+##### Sérialisation et Désérialisation
+
+La bibliothèque "pickle" est utilisée dans ce projet pour la sérialisation et la désérialisation des objets Python. Voici comment cela fonctionne :
+
+- **Sérialisation :** Lorsqu'un objet Python doit être envoyé d'un client à un serveur ou vice versa, ou même lorsqu'il doit être stocké sur le disque, il est sérialisé en une représentation binaire. "pickle" est utilisé pour accomplir cette tâche. Par exemple, dans le projet, les objets `Player` sont sérialisés avant d'être envoyés au serveur pour initialisation.
+
+    ```python
+    # Sérialisation d'un objet avec pickle
+    player_data = pickle.dumps(player_object)
+    ```
+
+- **Désérialisation :** Lorsque les données binaires sont reçues par l'autre partie (par exemple, le serveur), elles doivent être désérialisées pour reconstituer l'objet Python d'origine. "pickle" est également utilisé pour cette étape. Par exemple, dans le projet, le serveur reçoit les données binaires et les désérialise pour obtenir l'objet `Player`.
+
+    ```python
+    # Désérialisation d'un objet avec pickle
+    player_object = pickle.loads(player_data)
+    ```
+
+##### Utilisation dans la classe Network
+
+La classe `Network` dans le projet contient des méthodes pour la sérialisation et la désérialisation des données échangées entre les clients et le serveur. Voici comment "pickle" est utilisé dans cette classe :
+
+- La méthode `send` est utilisée pour envoyer des données depuis un client vers le serveur. Elle sérialise les données avec "pickle" avant de les envoyer.
+
+    ```python
+    def send(self, data):
+        try:
+            self.client.send(pickle.dumps(data))
+        except socket.error as e:
+            print(e)
+    ```
+
+- La méthode `connect` est utilisée pour recevoir des données du serveur. Elle reçoit d'abord les données sous forme binaire, puis les désérialise avec "pickle" pour obtenir l'objet d'origine.
+
+    ```python
+    def connect(self):
+        try:
+            self.client.connect(self.addr)
+            return pickle.loads(self.client.recv(2048))
+        except:
+            pass
+    ```
+
+##### Sécurité et Limitations
+
+Il est important de noter que "pickle" peut être puissant, mais il doit être utilisé avec précaution, car il peut exécuter du code arbitraire lors de la désérialisation. Cela signifie que lors de l'utilisation de "pickle", il faut s'assurer que les données proviennent de sources de confiance, car des données malveillantes pourraient potentiellement causer des problèmes de sécurité.
+
+De plus, "pickle" n'est pas adapté à la sérialisation d'objets destinés à être partagés entre différentes versions de Python, car les formats de sérialisation peuvent varier entre les versions. Dans ce projet, la communication est réalisée entre des clients et un serveur Python, ce qui simplifie la compatibilité.
+
+
 
 ### 3. Création des murs de la fenêtre et déplacement en X et Y 🏰
 
