@@ -4,7 +4,7 @@ from player import Player
 from home import home
 import sys
 
-pygame.init()  
+pygame.init()  # Initialisez Pygame au début du script
 n = Network()
 p = n.getP()
 home(n)
@@ -59,7 +59,7 @@ def end_game_screen(win, result, n):
                 return False  # Le joueur a choisi de quitter
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if restart_btn.collidepoint(event.pos):
-                    p.reset_player(50,450)  # Réinitialisez les caractéristiques du joueur local
+                    p.reset_player(50,50)  # Réinitialisez les caractéristiques du joueur local
                     n.send(p)  # Envoyez le joueur réinitialisé au serveur
                     return True  # Le joueur a choisi de recommencer
                 if quit_btn.collidepoint(event.pos):
