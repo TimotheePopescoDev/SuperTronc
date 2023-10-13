@@ -1,6 +1,11 @@
 # SuperTronc
 Team's project in python. Creation of a multiplayer game on local server with Threads and Pygame library.
-Maximilien Menesguen, Timothée Popesco, Anne-Julie Hoye, Romain Theron
+Maximilien Menesguen, Timothée Popesco, Anne-Julie Hoye, Romain Theron.
+
+## Informations to play and launch the game : 
+First be sure to have python and pygame install on your computer. Then for local access in server's script : 127.0.0.1 in network's script : 127.0.0.1. For "online" access on server's script : 0.0.0.0 in network's script : "IPV4". You can find your ip with ifconfig in your terminal Linux.
+Finally you have to launch serveur.py in the terminal and then client.py and client2.py in the terminal.
+Then you just have to move with arrow and enjoy.
 
 # EN : 
 
