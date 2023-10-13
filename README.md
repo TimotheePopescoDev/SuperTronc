@@ -70,10 +70,6 @@ It's important to note that "pickle" can be powerful but should be used with cau
 
 Furthermore, "pickle" is not suitable for serializing objects intended to be shared between different versions of Python as serialization formats can vary between versions. In this project, communication is conducted between Python clients and a server, simplifying compatibility.
 
-### 2. Implémentation des clients et des classes joueur 🕹️
-
-Les clients utilisent Pygame pour créer une fenêtre de jeu. Chaque client a son propre objet `Player` qui représente le joueur qu'il contrôle. Le joueur est un carré coloré qui peut être déplacé à l'aide des touches fléchées.
-
 ### 2. Implementation of Clients and Player Classes 🕹️
 
 Clients use Pygame to create a game window. Each client has its own `Player` object representing the player they control. The player is a colored square that can be moved using the arrow keys.
@@ -98,7 +94,11 @@ Collisions are managed by the `Player` class. The `has_exceeded_boundaries` meth
 
 The `has_collided_with` method checks for collisions with the other player. It first checks for a collision with the rectangle defined by the other player and then if there is a collision with the trace of the other player. If a collision is detected, the player has lost the game, and the winner is determined.
 
-### 6. Bug Fixes 🐛
+### 6. Creating the start and end screens 🎮
+
+Welcome screen to wait for the second player and end screen to start again
+
+### 7. Bug Fixes 🐛
 
 The project may have potential bugs, including issues with handling player disconnections, serialization/deserialization errors, or other game-specific problems. Bug fixing typically involves game testing, issue monitoring, code debugging, and making corrections as needed.
 
@@ -193,7 +193,11 @@ Les collisions sont gérées par la classe `Player`. La méthode `has_exceeded_b
 
 La méthode `has_collided_with` vérifie s'il y a une collision avec l'autre joueur. Elle vérifie d'abord s'il y a une collision avec le rectangle défini par l'autre joueur, puis si le joueur entre en collision avec la traînée de l'autre joueur. Si une collision est détectée, le joueur a perdu la partie, et le gagnant est déterminé.
 
-### 6. Correction des bugs 🐛
+### 6. Création des écrans de démarrage et de fin 🎮
+
+Ecran d'accueil pour attendre le second joueur et ecran de fin pour avoir la possibilité de recommencer
+
+### 7. Correction des bugs 🐛
 
 Le projet peut comporter des bugs potentiels, notamment des problèmes de gestion des déconnexions de joueurs, des erreurs de sérialisation/désérialisation, ou d'autres problèmes spécifiques au jeu. La correction des bugs implique généralement de tester le jeu, de surveiller les problèmes, de déboguer le code et de les corriger au fur et à mesure.
 
